@@ -12,15 +12,19 @@ const Navbar = () => {
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
+          <hr className="w-1/2 h-[2px] bg-gray-700 border-0 hidden" />
         </NavLink>
         <NavLink to="/collection" className="flex flex-col items-center gap-1">
           <p>COLLECTION</p>
+          <hr className="w-1/2 h-[2px] bg-gray-700 border-0 hidden" />
         </NavLink>
         <NavLink to="/about" className="flex flex-col items-center gap-1">
           <p>ABOUT</p>
+          <hr className="w-1/2 h-[2px] bg-gray-700 border-0 hidden" />
         </NavLink>
         <NavLink to="/contact" className="flex flex-col items-center gap-1">
           <p>CONTACT</p>
+          <hr className="w-1/2 h-[2px] bg-gray-700 border-0 hidden" />
         </NavLink>
       </ul>
 
@@ -37,7 +41,7 @@ const Navbar = () => {
             alt="profile icon"
             className="w-5 h-5 cursor-pointer"
           />
-          <div className="hidden group-hover:block absolute left-1/2 transform -translate-x-1/2 mt-2 w-40 bg-slate-100 rounded shadow-lg z-10">
+          <div className="hidden group-hover:block absolute -top-0 -right-1 mt-2 w-40 bg-slate-100 rounded shadow-lg z-10">
             <div className="flex flex-col gap-4 py-3 px-5 text-gray-500">
               <p className="cursor-pointer hover:text-black">My Profile</p>
               <p className="cursor-pointer hover:text-black">Orders</p>
