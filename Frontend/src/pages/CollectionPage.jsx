@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItems from "../components/ProductItems";
 
 const CollectionPage = () => {
-  const { products } = React.useContext(ShopContext);
+  const { products, search, showSearchBar } = React.useContext(ShopContext);
 
   const [showFilters, setShowFilters] = React.useState(false);
   const [categories, setCategories] = React.useState([]);
@@ -33,6 +33,12 @@ const CollectionPage = () => {
   const filteredProducts = useMemo(() => {
     let updated = [...products];
 
+    if (showSearchBar && search) {
+      updated = updated.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
     if (categories.length > 0) {
       updated = updated.filter((item) => categories.includes(item.category));
     }
@@ -50,7 +56,7 @@ const CollectionPage = () => {
     }
 
     return updated;
-  }, [products, categories, subCategories, sortType]);
+  }, [products, categories, subCategories, sortType, search, showSearchBar]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
