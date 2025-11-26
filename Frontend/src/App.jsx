@@ -10,6 +10,7 @@ import ProductPage from "./pages/ProductPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import OrderPage from "./pages/OrderPage.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/place-order" element={<PlaceOrderPage />} />
         <Route path="/order" element={<OrderPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
