@@ -34,7 +34,7 @@ const Footer = () => {
 
       <hr className="my-5 border-gray-300" />
 
-      <p className="text-sm text-center pb-5 text-gray-600">
+      <p className="text-sm text-center text-gray-600">
         Copyright 2024 @ Looma.com. All rights reserved.
       </p>
     </div>
