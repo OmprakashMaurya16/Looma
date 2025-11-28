@@ -5,7 +5,7 @@ import ShopContext from "../context/ShopContext";
 
 const Navbar = () => {
   const [visible, setVisible] = React.useState(false);
-  const { setShowSearchBar } = React.useContext(ShopContext);
+  const { setShowSearchBar, getCartCount } = React.useContext(ShopContext);
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -64,7 +64,7 @@ const Navbar = () => {
             className="w-5 cursor-pointer"
           />
           <p className="absolute right-[-5px] bottom-[-5px] bg-black text-white text-center w-4 leading-4 text-[8px] rounded-full">
-            0
+            {getCartCount()}
           </p>
         </Link>
 

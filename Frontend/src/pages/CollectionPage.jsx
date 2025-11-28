@@ -12,7 +12,7 @@ const CollectionPage = () => {
   const [subCategories, setSubCategories] = React.useState([]);
   const [sortType, setSortType] = React.useState("newest");
 
-  const toggleCategory = (e) => {
+  const toggleCategory = async (e) => {
     const value = e.target.value;
     setCategories((prev) =>
       prev.includes(value)
@@ -21,7 +21,7 @@ const CollectionPage = () => {
     );
   };
 
-  const toggleSubCategory = (e) => {
+  const toggleSubCategory = async (e) => {
     const value = e.target.value;
     setSubCategories((prev) =>
       prev.includes(value)
