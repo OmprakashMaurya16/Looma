@@ -6,11 +6,13 @@ const {
   deleteProduct,
 } = require("../controllers/productController");
 const upload = require("../middleware/multer");
+const adminAuth = require("../middleware/adminAuth");
 
 const productRouter = express.Router();
 
 productRouter.post(
   "/add",
+  adminAuth,
   upload.fields([
     { name: "image1", maxCount: 1 },
     { name: "image2", maxCount: 1 },
@@ -19,7 +21,7 @@ productRouter.post(
   ]),
   addProduct
 );
-productRouter.post("/delete", deleteProduct);
+productRouter.post("/delete", adminAuth, deleteProduct);
 productRouter.get("/single", singleProduct);
 productRouter.get("/list", listProduct);
 

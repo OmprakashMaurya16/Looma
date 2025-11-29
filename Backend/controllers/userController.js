@@ -94,7 +94,36 @@ const registerUser = async (req, res) => {
   }
 };
 
-const adminLogin = async (req, res) => {};
+const adminLogin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (
+      email === process.env.ADMIN_EMAIL &&
+      password === process.env.ADMIN_PASSWORD
+    ) {
+      const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, {
+        expiresIn: "7d",
+      });
+      return res.status(200).json({
+        success: true,
+        message: "Admin login successful",
+        token,
+      });
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid admin credentials",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error logging in admin",
+      error: error.message,
+    });
+  }
+};
 
 module.exports = {
   loginUser,
