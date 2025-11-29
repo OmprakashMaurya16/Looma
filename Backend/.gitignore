@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+.env.production
+.env.development
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build / Cache
+dist/
+build/
+.cache/
+.temp/
+
+# Uploads (if using multer or local uploads)
+uploads/
+public/uploads/
+
+# Coverage (testing)
+coverage/
+
+# IDE files
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.swp
+*.swo
+
+# Optional: If using Cloudinary or similar, ignore local temp
+tmp/
