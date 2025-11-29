@@ -1,0 +1,34 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/OmprakashMaurya16/Looma#readme",
+  "bugs": {
+    "url": "https://github.com/OmprakashMaurya16/Looma/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmprakashMaurya16/Looma.git"
+  },
+  "license": "ISC",
+  "author": "Omprakash Maurya",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.8.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.0.0",
+    "multer": "^2.0.2",
+    "razorpay": "^2.9.6",
+    "stripe": "^20.0.0",
+    "validator": "^13.15.23"
+  }
+}
