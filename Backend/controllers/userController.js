@@ -36,7 +36,11 @@ const loginUser = async (req, res) => {
         .json({ success: false, message: "Invalid credentials" });
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error logging in user" });
+    res.status(500).json({
+      success: false,
+      message: "Error logging in user",
+      error: error.message,
+    });
   }
 };
 
@@ -82,7 +86,11 @@ const registerUser = async (req, res) => {
       token,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Error registering user" });
+    res.status(500).json({
+      success: false,
+      message: "Error registering user",
+      error: error.message,
+    });
   }
 };
 
