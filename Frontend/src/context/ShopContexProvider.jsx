@@ -1,15 +1,17 @@
 import ShopContext from "./ShopContext";
-import { products } from "../assets/assets";
 import { useEffect, useState } from "react";
+import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 const ShopContextProvider = (props) => {
-  const currency = "$";
-  const deliveryFee = 10.0;
+  const currency = "Rs.";
+  const deliveryFee = 49.0;
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [cartItems, setCartItems] = useState({});
+  const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
@@ -79,9 +81,29 @@ const ShopContextProvider = (props) => {
     setCartItems(cartItems);
   }, [cartItems]);
 
+  const getProductsData = async () => {
+    try {
+      const response = await axios.get(backendURL + "/api/product/list");
+
+      if (response.data.success) {
+        setProducts(response.data.products);
+      } else {
+        console.error("Failed to fetch products data:", response.data.message);
+        toast.error("Failed to fetch products data: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching products data:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProductsData();
+  });
+
   const value = {
     products,
     currency,
+    backendURL,
     deliveryFee,
     search,
     setSearch,

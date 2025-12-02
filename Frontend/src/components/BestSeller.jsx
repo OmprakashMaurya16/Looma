@@ -10,7 +10,7 @@ const BestSeller = () => {
 
   React.useEffect(() => {
     if (products && products.length > 0) {
-      const bestProduct = products.filter((item) => item.bestseller === true);
+      const bestProduct = products.filter((item) => item.bestSeller === true);
       setBestSeller(bestProduct.slice(0, 5));
     }
   }, [products]);
@@ -30,7 +30,7 @@ const BestSeller = () => {
           <ProductItems
             key={index}
             id={item._id}
-            image={item.image}
+            images={item.images}
             name={item.name}
             price={item.price}
           />

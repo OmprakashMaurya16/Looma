@@ -8,14 +8,14 @@ const ProductPage = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState("");
   const [size, setSize] = useState("");
 
   const fetchProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
         setProductData(item);
-        setImage(item.image[0]);
+        setImages(item.images[0]);
       }
       return null;
     });
@@ -30,20 +30,20 @@ const ProductPage = () => {
       <div className="w-full flex flex-col sm:flex-row gap-12 border-t pt-10 border-gray-400">
         <div className="w-full sm:w-1/2 flex sm:flex-row flex-col-reverse gap-3">
           <div className="flex sm:flex-col overflow-x-auto sm:overflow-hidden justify-between sm:justify-normal w-full sm:w-[15%]">
-            {productData.image.map((item, index) => (
+            {productData.images.map((item, index) => (
               <img
                 src={item}
                 key={index}
                 alt=""
                 className="w-[24%] sm:w-full sm:mb-3 shrink-0 cursor-pointer shadow-md border-2 border-gray-50"
-                onClick={() => setImage(item)}
+                onClick={() => setImages(item)}
               />
             ))}
           </div>
 
           <div className="w-full sm:w-[80%]">
             <img
-              src={image}
+              src={images}
               alt=""
               className="w-full h-auto object-cover border-gray-50 shadow-md border-2"
             />
