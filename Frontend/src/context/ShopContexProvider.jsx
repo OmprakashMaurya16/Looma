@@ -107,10 +107,14 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
+      if (!itemInfo) {
+        continue;
+      }
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
-            totalAmount += itemInfo.price * cartItems[items][item];
+            const price = Number(itemInfo.price) || 0;
+            totalAmount += price * cartItems[items][item];
           }
         } catch (error) {
           console.error("Error calculating cart amount:", error);
@@ -131,6 +135,9 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
+      if (!backendURL) {
+        return;
+      }
       const response = await axios.get(backendURL + "/api/product/list");
 
       if (response.data.success) {
