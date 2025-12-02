@@ -34,6 +34,7 @@ const CartPage = () => {
       <div>
         {cartData.map((item, index) => {
           const productData = products.find((prod) => prod._id === item._id);
+          if (!productData) return null;
 
           return (
             <div

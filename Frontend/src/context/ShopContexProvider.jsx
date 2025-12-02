@@ -10,8 +10,16 @@ const ShopContextProvider = (props) => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [search, setSearch] = useState("");
   const [showSearchBar, setShowSearchBar] = useState(false);
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem("cart");
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
   const [products, setProducts] = useState([]);
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const navigate = useNavigate();
 
   const addToCart = async (itemId, size) => {
@@ -34,6 +42,23 @@ const ShopContextProvider = (props) => {
     }
 
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendURL + "/api/cart/add",
+          {
+            itemId,
+            size,
+          },
+          {
+            headers: { token },
+          }
+        );
+      } catch (error) {
+        console.error("Error updating cart on server:", error);
+      }
+    }
   };
 
   const getCartCount = () => {
@@ -52,12 +77,30 @@ const ShopContextProvider = (props) => {
     return count;
   };
 
-  const updateQuantity = (itemId, size, quantity) => {
+  const updateQuantity = async (itemId, size, quantity) => {
     const cartData = structuredClone(cartItems);
 
     cartData[itemId][size] = quantity;
 
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendURL + "/api/cart/update",
+          {
+            itemId,
+            size,
+            quantity,
+          },
+          {
+            headers: { token },
+          }
+        );
+      } catch (error) {
+        console.error("Error updating cart on server:", error);
+      }
+    }
   };
 
   const getCartAmount = () => {
@@ -77,8 +120,13 @@ const ShopContextProvider = (props) => {
     return totalAmount;
   };
 
+  // Persist cart to localStorage on change
   useEffect(() => {
-    setCartItems(cartItems);
+    try {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+    } catch (e) {
+      // ignore storage errors
+    }
   }, [cartItems]);
 
   const getProductsData = async () => {
@@ -96,9 +144,31 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  const getUserCart = async (token) => {
+    try {
+      const response = await axios.get(backendURL + "/api/cart/get", {
+        headers: { token },
+      });
+
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
+      }
+    } catch (error) {
+      console.error("Error fetching user cart data:", error);
+    }
+  };
+
   useEffect(() => {
     getProductsData();
-  });
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("token");
+    if (!token && stored) {
+      setToken(stored);
+      getUserCart(stored);
+    }
+  }, [token]);
 
   const value = {
     products,
@@ -111,10 +181,13 @@ const ShopContextProvider = (props) => {
     setShowSearchBar,
     addToCart,
     cartItems,
+    setCartItems,
     getCartCount,
     updateQuantity,
     getCartAmount,
     navigate,
+    setToken,
+    token,
   };
 
   return (
