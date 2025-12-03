@@ -22,7 +22,11 @@ app.use("/api/cart", cartRouter);
 app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Looma");
+  res.send({
+    activeStatus: true,
+    message: "Welcome to Looma API",
+    error: false,
+  });
 });
 
 app.listen(PORT, () => {
