@@ -15,25 +15,25 @@ pipeline {
 
     stage('Backend Install') {
       steps {
-        sh 'cd Backend && npm install'
+        bat 'cd Backend && npm install'
       }
     }
 
     stage('Frontend Install') {
       steps {
-        sh 'cd Frontend && npm install'
+        bat 'cd Frontend && npm install'
       }
     }
 
     stage('Frontend Build') {
       steps {
-        sh 'cd Frontend && npm run build'
+        bat 'cd Frontend && npm run build'
       }
     }
 
     stage('Start Server') {
       steps {
-        sh 'cd Backend && node server/index.js &'
+        bat 'cd Backend && node server/index.js &'
       }
     }
   }
