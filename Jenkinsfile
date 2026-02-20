@@ -31,10 +31,17 @@ pipeline {
       }
     }
 
-    stage('Start Server') {
+    stage('Admin Install') {
       steps {
-        bat 'cd Backend && node server/index.js &'
+        bat 'cd Admin && npm install'
       }
     }
+
+    stage('Admin Build') {
+      steps {
+        bat 'cd Admin && npm run build'
+      }
+    }
+
   }
 }
