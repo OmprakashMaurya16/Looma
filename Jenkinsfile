@@ -1,10 +1,6 @@
 pipeline {
   agent any
 
-  tools {
-    nodejs 'node'
-  }
-
   stages {
 
     stage('Checkout') {
@@ -13,33 +9,17 @@ pipeline {
       }
     }
 
-    stage('Backend Install') {
+    stage('Build Docker Image') {
       steps {
-        bat 'cd Backend && npm install'
+        sh 'docker build -t looma-app .'
       }
     }
 
-    stage('Frontend Install') {
+    stage('Deploy Container') {
       steps {
-        bat 'cd Frontend && npm install'
-      }
-    }
-
-    stage('Frontend Build') {
-      steps {
-        bat 'cd Frontend && npm run build'
-      }
-    }
-
-    stage('Admin Install') {
-      steps {
-        bat 'cd Admin && npm install'
-      }
-    }
-
-    stage('Admin Build') {
-      steps {
-        bat 'cd Admin && npm run build'
+        sh 'docker stop looma || true'
+        sh 'docker rm looma || true'
+        sh 'docker run -d -p 8080:8080 --name looma looma-app'
       }
     }
 
